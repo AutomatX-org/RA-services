@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Send Confirmation | RAFX VIP - RA-Services</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== CONFIRM PAGE ===== */
+
+    /* Hero */
+    .confirm-hero {
+      padding: 130px 0 72px;
+      background: var(--bg-2);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+    .confirm-hero-glow {
+      position: absolute;
+      width: 600px; height: 400px;
+      background: radial-gradient(circle, rgba(16,185,129,0.1), transparent 70%);
+      top: -100px; left: 50%; transform: translateX(-50%);
+      pointer-events: none;
+    }
+    .confirm-hero .vip-badge { margin: 0 auto 22px; display: inline-flex; }
+    .confirm-hero h1 { margin-bottom: 14px; }
+    .confirm-hero > .container > p { max-width: 500px; margin: 0 auto; font-size: 1.05rem; }
+
+    /* Progress tracker */
+    .confirm-progress {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 44px;
+    }
+    .cp-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .cp-dot {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      font-weight: 800;
+      border: 2px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.03);
+      color: var(--text-muted);
+      position: relative;
+      z-index: 1;
+      transition: all 0.3s;
+    }
+    .cp-step.done .cp-dot {
+      background: rgba(16,185,129,0.15);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+    .cp-step.active .cp-dot {
+      background: linear-gradient(135deg, #10b981, #059669);
+      border-color: transparent;
+      color: #0a0805;
+      box-shadow: 0 0 20px rgba(16,185,129,0.5);
+    }
+    .cp-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .cp-step.done .cp-label,
+    .cp-step.active .cp-label { color: var(--text); }
+    .cp-line {
+      width: 56px;
+      height: 2px;
+      background: rgba(255,255,255,0.08);
+      margin-bottom: 26px;
+      flex-shrink: 0;
+    }
+    .cp-line.done { background: rgba(16,185,129,0.45); }
+
+    /* Layout */
+    .confirm-section { background: var(--bg); }
+    .confirm-inner {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 28px;
+      align-items: start;
+    }
+
+    /* ---- Form card ---- */
+    .confirm-form-wrap {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+    }
+    /* Gradient top accent bar */
+    .confirm-form-wrap::before {
+      content: '';
+      display: block;
+      height: 3px;
+      background: linear-gradient(90deg, #10b981, #34d399, #a78bfa);
+    }
+
+    /* Form header */
+    .form-header {
+      padding: 32px 36px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .form-header-icon {
+      width: 44px; height: 44px;
+      background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+    .form-header-icon svg { width: 22px; height: 22px; }
+    .form-header-text h3 { color: var(--text); margin-bottom: 4px; font-size: 1.25rem; }
+    .form-header-text p { font-size: 0.88rem; margin: 0; line-height: 1.5; }
+
+    /* Form body */
+    .confirm-form-body {
+      padding: 28px 36px 36px;
+    }
+
+    /* Section dividers inside form */
+    .form-section {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 28px;
+    }
+    .form-section:last-of-type {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    .form-section-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .form-section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(16,185,129,0.15);
+    }
+
+    /* Input groups */
+    .cf-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .cf-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .cf-group label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.02em;
+    }
+    .cf-group label .opt {
+      color: var(--text-muted);
+      font-weight: 400;
+      font-size: 0.75rem;
+    }
+
+    /* Input with icon */
+    .cf-input-wrap {
+      position: relative;
+    }
+    .cf-input-icon {
+      position: absolute;
+      left: 13px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+      display: flex;
+    }
+    .cf-input-icon svg { width: 15px; height: 15px; }
+    .cf-input-wrap input,
+    .cf-input-wrap textarea {
+      width: 100%;
+      padding: 12px 14px 12px 38px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+      appearance: none;
+      box-sizing: border-box;
+    }
+    .cf-input-wrap textarea {
+      padding-top: 12px;
+      resize: vertical;
+      min-height: 96px;
+    }
+    .cf-input-wrap input::placeholder,
+    .cf-input-wrap textarea::placeholder { color: rgba(136,136,160,0.6); }
+    .cf-input-wrap input:focus,
+    .cf-input-wrap textarea:focus {
+      border-color: rgba(16,185,129,0.45);
+      background: rgba(16,185,129,0.03);
+      box-shadow: 0 0 0 3px rgba(16,185,129,0.08);
+    }
+    /* Autofill override */
+    .cf-input-wrap input:-webkit-autofill,
+    .cf-input-wrap input:-webkit-autofill:focus {
+      -webkit-box-shadow: 0 0 0 100px #12121a inset;
+      -webkit-text-fill-color: var(--text);
+      caret-color: var(--text);
+    }
+
+    /* Upload zone */
+    .upload-zone {
+      border: 2px dashed rgba(255,255,255,0.1);
+      border-radius: var(--radius);
+      padding: 32px 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s;
+      background: rgba(255,255,255,0.02);
+      position: relative;
+    }
+    .upload-zone:hover,
+    .upload-zone.dragover {
+      border-color: rgba(16,185,129,0.5);
+      background: rgba(16,185,129,0.04);
+    }
+    .upload-zone.dragover { box-shadow: 0 0 0 3px rgba(16,185,129,0.1); }
+    .upload-zone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+    .upload-icon {
+      width: 48px; height: 48px;
+      background: rgba(16,185,129,0.08);
+      border: 1px solid rgba(16,185,129,0.18);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 14px;
+      color: var(--gold);
+      transition: background 0.25s;
+    }
+    .upload-zone:hover .upload-icon { background: rgba(16,185,129,0.14); }
+    .upload-icon svg { width: 22px; height: 22px; }
+    .upload-zone strong {
+      display: block;
+      color: var(--text);
+      font-size: 0.92rem;
+      margin-bottom: 4px;
+    }
+    .upload-zone strong span { color: var(--gold); }
+    .upload-zone > span {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .upload-hint {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-top: 9px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      justify-content: center;
+    }
+    .upload-hint svg { width: 12px; height: 12px; color: var(--gold); flex-shrink: 0; }
+
+    .upload-preview {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 14px;
+      background: rgba(16,185,129,0.06);
+      border: 1px solid rgba(16,185,129,0.2);
+      border-radius: var(--radius-sm);
+      margin-top: 10px;
+    }
+    .upload-preview.visible { display: flex; }
+    .upload-preview-icon { color: var(--gold); flex-shrink: 0; display: flex; }
+    .upload-preview-icon svg { width: 16px; height: 16px; }
+    .upload-preview-name {
+      font-size: 0.83rem;
+      color: var(--text);
+      font-weight: 600;
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .upload-preview-remove {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 3px;
+      display: flex;
+      border-radius: 4px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .upload-preview-remove:hover { color: #f87171; background: rgba(248,113,113,0.08); }
+    .upload-preview-remove svg { width: 14px; height: 14px; }
+
+    /* Submit area */
+    .form-submit-area {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .form-submit-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .form-submit-note svg { width: 13px; height: 13px; color: var(--gold); flex-shrink: 0; }
+
+    /* Success state */
+    .confirm-success {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 18px;
+      padding: 48px 36px 44px;
+    }
+    .confirm-success.visible { display: flex; }
+    .success-ring {
+      position: relative;
+      width: 80px; height: 80px;
+    }
+    .success-ring-inner {
+      width: 80px; height: 80px;
+      background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.25);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+    }
+    .success-ring-inner svg { width: 36px; height: 36px; }
+    .success-ring::before {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 1px solid rgba(16,185,129,0.12);
+    }
+    .confirm-success h3 { margin: 0; font-size: 1.4rem; }
+    .confirm-success p { max-width: 400px; font-size: 0.9rem; margin: 0; line-height: 1.7; }
+    .confirm-success .next-step-hint {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 20px;
+      background: rgba(16,185,129,0.06);
+      border: 1px solid rgba(16,185,129,0.15);
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      color: var(--text);
+      max-width: 380px;
+      text-align: left;
+    }
+    .confirm-success .next-step-hint svg { width: 16px; height: 16px; color: var(--gold); flex-shrink: 0; }
+    .confirm-success .btn { margin-top: 4px; }
+
+    /* ---- Sidebar ---- */
+    .confirm-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: sticky;
+      top: 90px;
+    }
+
+    .sidebar-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .sidebar-card-head {
+      padding: 18px 22px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .sidebar-card-head-icon {
+      width: 30px; height: 30px;
+      background: rgba(16,185,129,0.1);
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+    .sidebar-card-head-icon svg { width: 15px; height: 15px; }
+    .sidebar-card-head h4 {
+      color: var(--text);
+      font-size: 0.92rem;
+      margin: 0;
+    }
+    .sidebar-card-body { padding: 18px 22px 20px; }
+
+    .sidebar-checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+    .sidebar-check {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .sidebar-check-icon {
+      flex-shrink: 0;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: rgba(16,185,129,0.12);
+      border: 1px solid rgba(16,185,129,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      margin-top: 1px;
+    }
+    .sidebar-check-icon svg { width: 10px; height: 10px; }
+
+    .sidebar-what-next {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .snext-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .snext-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .snext-item:first-child { padding-top: 0; }
+    .snext-num {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: var(--gold);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .snext-text strong { display: block; font-size: 0.85rem; color: var(--text); font-weight: 600; margin-bottom: 2px; }
+    .snext-text span { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
+
+    .sidebar-tip {
+      display: flex;
+      gap: 11px;
+      align-items: flex-start;
+      padding: 16px 20px;
+      background: rgba(16,185,129,0.04);
+      border: 1px solid rgba(16,185,129,0.12);
+      border-radius: var(--radius);
+    }
+    .sidebar-tip-icon { color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+    .sidebar-tip-icon svg { width: 15px; height: 15px; }
+    .sidebar-tip p { font-size: 0.81rem; margin: 0; line-height: 1.6; }
+
+    /* Mobile */
+    @media (max-width: 900px) {
+      .confirm-inner { grid-template-columns: 1fr; }
+      .confirm-sidebar { position: static; }
+    }
+    @media (max-width: 600px) {
+      .cf-row { grid-template-columns: 1fr; gap: 14px; }
+      .form-header { padding: 24px 22px 0; }
+      .confirm-form-body { padding: 20px 22px 28px; }
+      .confirm-success { padding: 36px 22px 32px; }
+      .cp-line { width: 32px; }
+      .cp-label { font-size: 0.63rem; }
+      .confirm-hero { padding: 110px 0 56px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner container">
+      <a href="index.html" class="logo">RA<span>-Services</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="vip.html" class="active">VIP</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="contact.html" class="btn btn-ghost">Get in Touch</a>
+        <a href="vip.html" class="btn btn-primary">Join VIP</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="about.html">About</a>
+      <a href="vip.html" class="active">VIP</a>
+      <a href="contact.html">Contact</a>
+      <a href="vip.html" class="btn btn-primary">Join VIP</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="confirm-hero">
+    <div class="confirm-hero-glow"></div>
+    <div class="grid-overlay"></div>
+    <div class="container">
+      <div class="vip-badge">
+        <span class="badge-dot"></span>
+        Step 2 of 4
+      </div>
+      <h1>Send Your <span class="gradient-text">Confirmation</span></h1>
+      <p>We verify every member personally. Fill in the details below and we'll confirm your VIP access within a few hours.</p>
+
+      <div class="confirm-progress">
+        <div class="cp-step done">
+          <div class="cp-dot">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <span class="cp-label">Create Account</span>
+        </div>
+        <div class="cp-line done"></div>
+        <div class="cp-step active">
+          <div class="cp-dot">2</div>
+          <span class="cp-label">Confirm</span>
+        </div>
+        <div class="cp-line"></div>
+        <div class="cp-step">
+          <div class="cp-dot">3</div>
+          <span class="cp-label">Claim Bonus</span>
+        </div>
+        <div class="cp-line"></div>
+        <div class="cp-step">
+          <div class="cp-dot">4</div>
+          <span class="cp-label">Join Group</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <section class="confirm-section section">
+    <div class="container confirm-inner">
+
+      <!-- ===== FORM CARD ===== -->
+      <div class="confirm-form-wrap">
+
+        <div class="form-header">
+          <div class="form-header-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div class="form-header-text">
+            <h3>Your Account Details</h3>
+            <p>Fill in every field below so we can verify your account quickly and get you into the group.</p>
+          </div>
+        </div>
+
+        <div class="confirm-form-body">
+          <form id="confirmForm">
+
+            <!-- Section 1: Personal -->
+            <div class="form-section">
+              <div class="form-section-label">Your details</div>
+
+              <div class="cf-row">
+                <div class="cf-group">
+                  <label for="fullName">Full Name</label>
+                  <div class="cf-input-wrap">
+                    <span class="cf-input-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </span>
+                    <input type="text" id="fullName" placeholder="John Smith" required />
+                  </div>
+                </div>
+                <div class="cf-group">
+                  <label for="yourEmail">Your Email Address</label>
+                  <div class="cf-input-wrap">
+                    <span class="cf-input-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </span>
+                    <input type="email" id="yourEmail" placeholder="you@example.com" required />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 2: PU Prime -->
+            <div class="form-section">
+              <div class="form-section-label">PU Prime account</div>
+
+              <div class="cf-group">
+                <label for="puEmail">Email Used to Register on PU Prime</label>
+                <div class="cf-input-wrap">
+                  <span class="cf-input-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  </span>
+                  <input type="email" id="puEmail" placeholder="The email you signed up with on PU Prime" required />
+                </div>
+              </div>
+
+              <div class="cf-group">
+                <label for="accountId">PU Prime Account ID <span class="opt">(optional - speeds up verification)</span></label>
+                <div class="cf-input-wrap">
+                  <span class="cf-input-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8a2 2 0 0 0-2 2v2h12V5a2 2 0 0 0-2-2z"/></svg>
+                  </span>
+                  <input type="text" id="accountId" placeholder="e.g. 123456789" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 3: Screenshot -->
+            <div class="form-section">
+              <div class="form-section-label">Proof of registration</div>
+
+              <div class="cf-group">
+                <label>Screenshot of Your Completed Registration</label>
+                <div class="upload-zone" id="uploadZone">
+                  <input type="file" id="screenshotInput" accept="image/*,.pdf" />
+                  <div class="upload-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
+                  </div>
+                  <strong><span>Click to upload</span> or drag &amp; drop</strong>
+                  <span>PNG, JPG, PDF · max 10 MB</span>
+                </div>
+                <div class="upload-preview" id="uploadPreview">
+                  <span class="upload-preview-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                  </span>
+                  <span class="upload-preview-name" id="previewName"></span>
+                  <button type="button" class="upload-preview-remove" id="removeFile" aria-label="Remove file">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                  </button>
+                </div>
+                <p class="upload-hint">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                  This confirms your account was registered through our link and qualifies for the bonus.
+                </p>
+              </div>
+            </div>
+
+            <!-- Section 4: Notes -->
+            <div class="form-section">
+              <div class="form-section-label">Anything else? <span style="font-size:0.68rem;text-transform:none;letter-spacing:0;color:var(--text-muted);font-weight:400;">(optional)</span></div>
+
+              <div class="cf-group">
+                <label for="notes">Additional Notes</label>
+                <div class="cf-input-wrap">
+                  <span class="cf-input-icon" style="top:14px;transform:none;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                  </span>
+                  <textarea id="notes" rows="3" placeholder="e.g. I signed up a few days ago, had trouble with KYC, etc."></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit -->
+            <div class="form-submit-area">
+              <button type="submit" class="btn btn-primary btn-lg btn-full" id="submitBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                Submit Confirmation
+              </button>
+              <p class="form-submit-note">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Your details are kept private and only used to verify your membership.
+              </p>
+            </div>
+
+          </form>
+
+          <!-- Success state -->
+          <div class="confirm-success" id="confirmSuccess">
+            <div class="success-ring">
+              <div class="success-ring-inner">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+            </div>
+            <h3>Confirmation Sent!</h3>
+            <p>We've received your details and will verify your account shortly. Keep an eye on your inbox - we'll be in touch within a few hours.</p>
+            <div class="next-step-hint">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              <span>While you wait - go to the <strong>Promo</strong> section in the PU Prime app and opt in to the 100% Deposit Bonus.</span>
+            </div>
+            <a href="vip.html" class="btn btn-outline">Back to VIP Page</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SIDEBAR ===== -->
+      <aside class="confirm-sidebar">
+
+        <!-- What we need -->
+        <div class="sidebar-card">
+          <div class="sidebar-card-head">
+            <div class="sidebar-card-head-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h4>What we need from you</h4>
+          </div>
+          <div class="sidebar-card-body">
+            <div class="sidebar-checklist">
+              <div class="sidebar-check">
+                <div class="sidebar-check-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <span>A screenshot of your completed PU Prime account registration</span>
+              </div>
+              <div class="sidebar-check">
+                <div class="sidebar-check-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <span>Your full name</span>
+              </div>
+              <div class="sidebar-check">
+                <div class="sidebar-check-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <span>The email address used to sign up on PU Prime</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- What happens next -->
+        <div class="sidebar-card">
+          <div class="sidebar-card-head">
+            <div class="sidebar-card-head-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <h4>What happens next</h4>
+          </div>
+          <div class="sidebar-card-body">
+            <div class="sidebar-what-next">
+              <div class="snext-item">
+                <div class="snext-num">1</div>
+                <div class="snext-text">
+                  <strong>We verify your account</strong>
+                  <span>Usually within a few hours during business hours.</span>
+                </div>
+              </div>
+              <div class="snext-item">
+                <div class="snext-num">2</div>
+                <div class="snext-text">
+                  <strong>Claim your 100% bonus</strong>
+                  <span>Opt in via the Promo section in the PU Prime app.</span>
+                </div>
+              </div>
+              <div class="snext-item">
+                <div class="snext-num">3</div>
+                <div class="snext-text">
+                  <strong>We add you to the group</strong>
+                  <span>You'll be added to the RAFX VIP group chat personally.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tip -->
+        <div class="sidebar-tip">
+          <span class="sidebar-tip-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg>
+          </span>
+          <p>Make sure your screenshot clearly shows your name and the PU Prime registration confirmation screen.</p>
+        </div>
+
+      </aside>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">RA<span>-Services</span></a>
+        <p>Helping businesses and individuals make more money through smart connections, trading, and AI.</p>
+        <div class="social-links">
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="Twitter">X</a>
+          <a href="#" aria-label="Instagram">ig</a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <strong>Services</strong>
+          <a href="services.html#brokerage">Business Brokerage</a>
+          <a href="services.html#trading">Trading &amp; Markets</a>
+          <a href="services.html#ai">AI Solutions</a>
+        </div>
+        <div class="footer-col">
+          <strong>Company</strong>
+          <a href="about.html">About Us</a>
+          <a href="vip.html">RAFX VIP</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <strong>Contact</strong>
+          <a href="mailto:info@raservices.co.uk">info@raservices.co.uk</a>
+          <a href="tel:+441234567890">+44 (0) 123 456 7890</a>
+          <span>London, UK</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <span>© 2026 RA-Services. All rights reserved.</span>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // File upload UX
+    const uploadZone  = document.getElementById('uploadZone');
+    const fileInput   = document.getElementById('screenshotInput');
+    const preview     = document.getElementById('uploadPreview');
+    const previewName = document.getElementById('previewName');
+    const removeBtn   = document.getElementById('removeFile');
+
+    function showPreview(name) {
+      previewName.textContent = name;
+      preview.classList.add('visible');
+    }
+    function clearFile() {
+      fileInput.value = '';
+      preview.classList.remove('visible');
+    }
+
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files[0]) showPreview(fileInput.files[0].name);
+    });
+    removeBtn.addEventListener('click', clearFile);
+
+    uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
+    uploadZone.addEventListener('dragleave', e => { if (!uploadZone.contains(e.relatedTarget)) uploadZone.classList.remove('dragover'); });
+    uploadZone.addEventListener('drop', e => {
+      e.preventDefault();
+      uploadZone.classList.remove('dragover');
+      const file = e.dataTransfer.files[0];
+      if (file) {
+        const dt = new DataTransfer();
+        dt.items.add(file);
+        fileInput.files = dt.files;
+        showPreview(file.name);
+      }
+    });
+
+    // Form submit
+    const form       = document.getElementById('confirmForm');
+    const submitBtn  = document.getElementById('submitBtn');
+    const successDiv = document.getElementById('confirmSuccess');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="17" height="17" style="animation:spin 0.8s linear infinite"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-.49-4.49"/></svg>
+        Sending...
+      `;
+      setTimeout(() => {
+        form.style.display = 'none';
+        successDiv.classList.add('visible');
+        document.querySelector('.confirm-form-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 1400);
+    });
+  </script>
+  <style>
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</body>
+</html>
+

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RA-Services | Powering Growth Through Connection & Intelligence</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- INTRO ANIMATION -->
+  <div id="intro">
+    <div class="intro-inner">
+      <div class="intro-logo">
+        <span class="intro-ra">RA</span><span class="intro-sep">-</span><span class="intro-svc">Services</span>
+      </div>
+      <div class="intro-line">
+        <div class="intro-line-fill"></div>
+      </div>
+      <p class="intro-tag">Powering Growth Through Connection &amp; Intelligence</p>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner container">
+      <a href="index.html" class="logo">RA<span>-Services</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="vip.html">VIP</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="contact.html" class="btn btn-ghost">Get in Touch</a>
+        <a href="vip.html" class="btn btn-primary">Join VIP</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="about.html">About</a>
+      <a href="vip.html">VIP</a>
+      <a href="contact.html">Contact</a>
+      <a href="vip.html" class="btn btn-primary">Join VIP</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-bg">
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+      <div class="grid-overlay"></div>
+    </div>
+    <div class="container hero-content" id="heroContent">
+      <div class="badge-pill">
+        <span class="badge-dot"></span>
+        Trusted by 200+ Businesses &amp; Traders
+      </div>
+      <h1 class="hero-title">
+        We Make<br />
+        <span class="gradient-text">Your Money</span><br />
+        Work Harder
+      </h1>
+      <p class="hero-sub">
+        RA-Services connects businesses, empowers traders, and deploys AI<br class="hide-mobile" />
+        so you can earn more - without leaving anything on the table.
+      </p>
+      <div class="hero-cta">
+        <a href="contact.html" class="btn btn-primary btn-lg">Get Started Free</a>
+        <a href="services.html" class="btn btn-outline btn-lg">Explore Services</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num" data-target="200">0</span><span class="stat-suffix">+</span>
+          <span class="stat-label">Businesses Connected</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num" data-target="94">0</span><span class="stat-suffix">%</span>
+          <span class="stat-label">Client Satisfaction</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-prefix">£</span><span class="stat-num" data-target="12">0</span><span class="stat-suffix">M+</span>
+          <span class="stat-label">Revenue Generated</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>Scroll to explore</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- SERVICES TEASER -->
+  <section class="services section" id="services">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tag">What We Do</p>
+        <h2>Three Pillars of <span class="gradient-text">Growth</span></h2>
+        <p class="section-desc">From brokering deals to algorithmic trading to AI automation - we handle it all so you don't have to.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card card-featured">
+          <div class="service-icon">
+            <svg viewBox="0 0 48 48" fill="none"><circle cx="16" cy="24" r="8" stroke="currentColor" stroke-width="2.5"/><circle cx="32" cy="24" r="8" stroke="currentColor" stroke-width="2.5"/><path d="M20 20l8 8M20 28l8-8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+          </div>
+          <div class="service-tag">Core Service</div>
+          <h3>Business Brokerage</h3>
+          <p>We act as your strategic middleman - sourcing deals, negotiating partnerships, and connecting you with the right businesses to unlock revenue you'd otherwise miss.</p>
+          <a href="services.html#brokerage" class="service-link">Learn more →</a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 48 48" fill="none"><polyline points="6,36 16,24 22,30 32,16 42,22" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M36 10h6v6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M42 10l-10 10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Trading &amp; Markets</h3>
+          <p>Whether you're new to trading or scaling a portfolio, we provide signals, strategies, and managed solutions across stocks, forex, and crypto.</p>
+          <a href="services.html#trading" class="service-link">Learn more →</a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 48 48" fill="none"><rect x="8" y="14" width="32" height="22" rx="4" stroke="currentColor" stroke-width="2.5"/><path d="M18 26l4-4 4 4 4-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="8" r="3" stroke="currentColor" stroke-width="2.5"/><path d="M24 11v3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+          </div>
+          <h3>AI-Powered Solutions</h3>
+          <p>We deploy custom AI tools that automate your workflows, generate leads, and give you an unfair advantage - built for your exact business model.</p>
+          <a href="services.html#ai" class="service-link">Learn more →</a>
+        </div>
+      </div>
+      <div class="section-cta">
+        <a href="services.html" class="btn btn-outline btn-lg">View All Services →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials section">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tag">What Clients Say</p>
+        <h2>Real People, <span class="gradient-text">Real Results</span></h2>
+      </div>
+      <div class="testi-grid">
+        <div class="testi-card">
+          <div class="stars"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <p>"RA-Services connected us with three new wholesale suppliers in under a month. The revenue impact was immediate - we're up 40% YoY."</p>
+          <div class="testi-author">
+            <div class="avatar">JM</div>
+            <div>
+              <strong>James M.</strong>
+              <span>E-commerce Director</span>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card testi-featured">
+          <div class="stars"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <p>"The trading signals alone have transformed my portfolio. But the AI lead-gen bot they built for my agency? That's a different level entirely."</p>
+          <div class="testi-author">
+            <div class="avatar">SA</div>
+            <div>
+              <strong>Sarah A.</strong>
+              <span>Agency Owner &amp; Trader</span>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="stars"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <p>"I came in with no idea how to automate my business. RA-Services had an AI workflow running within two weeks. Hours saved every single day."</p>
+          <div class="testi-author">
+            <div class="avatar">KO</div>
+            <div>
+              <strong>Kwame O.</strong>
+              <span>SME Founder</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner section">
+    <div class="container">
+      <div class="cta-banner-inner">
+        <div class="cta-banner-glow"></div>
+        <div class="cta-banner-text">
+          <h2>Ready to Start <span class="gradient-text">Making More?</span></h2>
+          <p>Book a free 30-minute strategy call. No pressure, no commitment.</p>
+        </div>
+        <a href="contact.html" class="btn btn-primary btn-lg">Book Free Consultation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">RA<span>-Services</span></a>
+        <p>Helping businesses and individuals make more money through smart connections, trading, and AI.</p>
+        <div class="social-links">
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="Twitter">X</a>
+          <a href="#" aria-label="Instagram">ig</a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <strong>Services</strong>
+          <a href="services.html#brokerage">Business Brokerage</a>
+          <a href="services.html#trading">Trading &amp; Markets</a>
+          <a href="services.html#ai">AI Solutions</a>
+        </div>
+        <div class="footer-col">
+          <strong>Company</strong>
+          <a href="about.html">About Us</a>
+          <a href="services.html#how">How It Works</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <strong>Contact</strong>
+          <a href="mailto:info@raservices.co.uk">info@raservices.co.uk</a>
+          <a href="tel:+441234567890">+44 (0) 123 456 7890</a>
+          <span>London, UK</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <span>© 2026 RA-Services. All rights reserved.</span>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="hero3d.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
+
